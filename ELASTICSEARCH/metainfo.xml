@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>ELASTICSEARCH</name>
+            <displayName>ElasticSearch</displayName>
+            <comment>A high-throughput distributed search system of index</comment>
+            <version>7.11.2</version>
+            <components>
+                <component>
+                    <name>ELASTICSEARCH_NODE</name>
+                    <displayName>ElasticSearch Node</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1+</cardinality>
+                    <versionAdvertised>true</versionAdvertised>
+                    <rollingRestartSupported>true</rollingRestartSupported>
+                    <timelineAppid>elasticsearch_node</timelineAppid>
+                    <commandScript>
+                        <script>scripts/elasticsearch_node.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>1200</timeout>
+                    </commandScript>
+                    <configFiles>
+                    <configFile>
+                        <type>jvm</type>
+                        <fileName>jvm.options</fileName>
+                        <dictionaryName>elasticsearch-jvm</dictionaryName>
+                    </configFile>
+                    <configFile>
+                        <type>env</type>
+                        <fileName>elasticsearch.yml</fileName>
+                        <dictionaryName>elasticsearch-config</dictionaryName>
+                    </configFile>
+                    </configFiles>
+                    <!--logs>
+                        <log>
+                            <logId>elasticsearch_node</logId>
+                            <primary>true</primary>
+                        </log>
+                        <log>
+                            <logId>kafka_controller</logId>
+                        </log>
+                        <log>
+                            <logId>kafka_request</logId>
+                        </log>
+                        <log>
+                            <logId>kafka_logcleaner</logId>
+                        </log>
+                        <log>
+                            <logId>kafka_statechange</logId>
+                        </log>
+                    </logs-->
+                </component>
+            </components>
+            
+            <osSpecifics>
+                <osSpecific>
+                    <osFamily>redhat7,amazonlinux2,redhat6,suse11,suse12</osFamily>
+                    <packages>
+                        <package>
+                            <name>elasticsearch_${stack_version}</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+                <osSpecific>
+                    <osFamily>debian7,debian9,ubuntu12,ubuntu14,ubuntu16,ubuntu18</osFamily>
+                    <packages>
+                        <package>
+                            <name>elasticsearch-${stack_version}</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+            </osSpecifics>
+            <restartRequiredAfterChange>true</restartRequiredAfterChange>
+            <restartRequiredAfterRackChange>true</restartRequiredAfterRackChange>
+
+            <themes>
+                <theme>
+                    <fileName>directories.json</fileName>
+                    <default>true</default>
+                </theme>
+            </themes>
+
+        </service>
+    </services>
+</metainfo>

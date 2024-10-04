@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+    <property>
+        <name>Xms</name>
+        <value>4g</value>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>Xmx</name>
+        <value>4g</value>
+        <on-ambari-upgrade add="true"/>
+    </property>
+</configuration>

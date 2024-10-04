@@ -1,0 +1,60 @@
+# It's not recommended to modify this file in-place, because it will be
+# overwritten during package upgrades.  If you want to customize, the
+# best way is to create a file "/etc/systemd/system/elasticsearchnode.service.j2",
+# containing
+#	.include /lib/systemd/system/elasticsearchnode.service.j2
+#	...make your changes here...
+# For more info about custom unit files, see
+# http://fedoraproject.org/wiki/Systemd#How_do_I_customize_a_unit_file.2F_add_a_custom_unit_file.3F
+
+# For example, if you want to change the server's port number to 5433,
+# create a file named "/etc/systemd/system/elasticsearchnode.service.j2" containing:
+#	.include /lib/systemd/system/elasticsearchnode.service.j2
+#	[Service]
+#	Environment=PGPORT=5433
+# This will override the setting appearing below.
+
+# Note: changing PGPORT or PGDATA will typically require adjusting SELinux
+# configuration as well; see /usr/share/doc/postgresql-*/README.rpm-dist.
+
+# Note: do not use a PGDATA pathname containing spaces, or you will
+# break postgresql-setup.
+
+# Note: in F-17 and beyond, /usr/lib/... is recommended in the .include line
+# though /lib/... will still work.
+
+[Unit]
+Description=ElasticSearch Index Search server
+After=network.target
+
+[Service]
+Type=forking
+
+User={es_user}
+Group={user_group}
+
+
+ExecStart=es_home/elasticsearch-7.11.2/bin/elasticsearch -d -p es_smoke_pid
+
+
+# 进程可以打开的最大文件数
+LimitNOFILE=1000000
+# 进程可以打开的最大进程数
+LimitNPROC=409600
+# 最大虚拟内存
+LimitAS=infinity
+# 最大文件大小
+LimitFSIZE=infinity
+# 超时设置 0-永不超时
+TimeoutStopSec=0
+# SIGTERM是停止java进程的信号
+KillSignal=SIGTERM
+# 信号只发送给给JVM
+KillMode=process
+# java进程不会被杀掉
+SendSIGKILL=no
+# 正常退出状态
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

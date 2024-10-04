@@ -1,0 +1,1 @@
+自定义服务python脚本依赖的模块是resource_management，该模块的位置在/usr/lib/ambari-agent/lib/resource_management

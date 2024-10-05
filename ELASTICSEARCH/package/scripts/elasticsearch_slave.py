@@ -1,0 +1,9 @@
+"""
+
+
+
+"""
+
+
+class ElasticSearchSlave(object):
+    pass

@@ -50,8 +50,7 @@ class ElasticsearchNode(Script):
         # 当有 restart() 方法时，程序会在重启的时候执行 restart() 方法逻辑
         import params
         env.set_params(params)
-        self.stop(env)
-        self.start(env)
+        Execute('systemctl restart elasticsearch', owner='root', group='root')
 
 
 def elasticsearch(type=None):
@@ -70,6 +69,7 @@ def elasticsearch(type=None):
     Execute(command='mv elasticsearch-7.11.2-linux-x86_64.tar.gz /tmp', user='root')
 
     # 初始化环境变量
+    Execute(format("cuseradd {es_user} -g {user_group}"))
     Execute(format("cd {es_home}; chown -R {es_user}:{user_group} elasticsearch*"))
     configFile("elasticsearch.yml", template_name="elasticsearch.yml.j2")
     configFile("jvm.options", template_name="jvm.options.j2")

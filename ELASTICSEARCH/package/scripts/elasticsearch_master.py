@@ -1,0 +1,11 @@
+"""
+
+
+
+"""
+
+
+class ElasticSearchMaster(object):
+    pass
+
+

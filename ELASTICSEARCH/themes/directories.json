@@ -1,6 +1,6 @@
 {
   "name": "directories",
-  "description": "Directories theme for ZOOKEEPER service",
+  "description": "Directories theme for ELASTICSEARCH service",
   "configuration": {
     "layouts": [
       {
@@ -80,34 +80,34 @@
       "configuration-layout": "default",
       "configs": [
         {
-          "config": "zoo.cfg/dataDir",
+          "config": "elasticsearch.yml/path.data",
           "subsection-name": "subsection-data-dirs"
         },
         {
-          "config": "zookeeper-env/zk_log_dir",
+          "config": "elasticsearch.yml/path.logs",
           "subsection-name": "subsection-log-dirs"
         },
         {
-          "config": "zookeeper-env/zk_pid_dir",
+          "config": "elasticsearch.yml/path.pid",
           "subsection-name": "subsection-pid-dirs"
         }
       ]
     },
     "widgets": [
       {
-        "config": "zoo.cfg/dataDir",
+        "config": "elasticsearch.yml/path.data",
         "widget": {
           "type": "text-field"
         }
       },
       {
-        "config": "zookeeper-env/zk_log_dir",
+        "config": "elasticsearch.yml/path.logs",
         "widget": {
           "type": "text-field"
         }
       },
       {
-        "config": "zookeeper-env/zk_pid_dir",
+        "config": "elasticsearch.yml/path.pid",
         "widget": {
           "type": "text-field"
         }

@@ -74,6 +74,14 @@
         <on-ambari-upgrade add="true"/>
     </property>
     <property>
+        <name>path.pid</name>
+        <value>/usr/bigdata/elasticsearch</value>
+        <value-attributes>
+            <type>directory</type>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
         <name>bootstrap.memory_lock</name>
         <value>false</value>
         <value-attributes>

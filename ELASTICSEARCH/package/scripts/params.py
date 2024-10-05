@@ -46,7 +46,7 @@ es_home = "/usr/bigdata/elasticsearch"
 
 config_dir = "/etc/elasticsearch"
 # config_file = "/etc/elasticsearch/conf"
-es_smoke_pid = os.path.join(tmp_dir, "elasticsearch.pid")
+es_smoke_pid = os.path.join(es_home, "elasticsearch.pid")
 
 es_user = config['configurations']['elasticsearch.yml']['es_user']
 es_lable = config['configurations']['elasticsearch.yml']['es_lable']

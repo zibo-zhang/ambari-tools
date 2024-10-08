@@ -59,8 +59,8 @@ def elasticsearch(type=None):
               path=[params.es_home, params.config_dir, params.es_data_dir, params.es_log_dir],
               create_parents=True)
     # 下载es包安装包
-    Execute(
-        'wget {0} -P {1} -O elasticsearch-7.11.2-linux-x86_64.tar.gz'.format((params.config_dir, params.es_home)))
+    Execute(format(
+        'wget {baseUrl} -P {es_home} -O elasticsearch-7.11.2-linux-x86_64.tar.gz'))
 
     # 将安装包解压到指定目录
     Execute(format('tar -zxf {es_home}/elasticsearch-7.11.2-linux-x86_64.tar.gz -C {es_home}'))
@@ -69,7 +69,7 @@ def elasticsearch(type=None):
     Execute(command='mv elasticsearch-7.11.2-linux-x86_64.tar.gz /tmp', user='root')
 
     # 初始化环境变量
-    Execute(format("cuseradd {es_user} -g {user_group}"))
+    Execute(format("useradd {es_user} -g {user_group}"))
     Execute(format("cd {es_home}; chown -R {es_user}:{user_group} elasticsearch*"))
     configFile("elasticsearch.yml", template_name="elasticsearch.yml.j2")
     configFile("jvm.options", template_name="jvm.options.j2")

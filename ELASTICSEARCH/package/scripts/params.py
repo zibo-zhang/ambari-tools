@@ -43,7 +43,11 @@ version = default("/commandParams/version", None)
 
 # default parameters
 es_home = "/usr/bigdata/elasticsearch"
-
+reposUrl = config['repositoryFile']['repositories']
+baseUrl = ''
+for url in reposUrl:
+    if 'HDP-UTILS' in url['repoName']:
+        reposUrl = url['baseUrl'].split('HDP')[0] + 'bigdatas/'
 config_dir = "/etc/elasticsearch"
 # config_file = "/etc/elasticsearch/conf"
 es_smoke_pid = os.path.join(es_home, "elasticsearch.pid")

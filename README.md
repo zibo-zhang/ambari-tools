@@ -1,5 +1,5 @@
 大数据组件日新月异,规模宏大
-本工程旨在基于GitHub上的https://github.com/orgs/cas-packone/repositories?type=all项目
+本工程旨在基于GitHub上的项目
 添加和完善更多service服务，让监控和管理更加方便
 自定义服务ambari的service用到的python脚本依赖的模块是resource_management
 该模块的位置在/usr/lib/ambari-agent/lib/resource_management

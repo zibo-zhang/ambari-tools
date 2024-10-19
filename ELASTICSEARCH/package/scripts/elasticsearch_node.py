@@ -4,6 +4,7 @@
 from resource_management.libraries.script.script import Script
 from resource_management.core.logger import Logger
 from resource_management import *
+import pwd
 
 
 class ElasticsearchNode(Script):
@@ -60,7 +61,7 @@ def elasticsearch(type=None):
               create_parents=True)
     # 下载es包安装包
     Execute(format(
-        'wget {baseUrl} -P {es_home} -O elasticsearch-7.11.2-linux-x86_64.tar.gz'))
+        'wget {baseUrl}/elasticsearch-7.11.2-linux-x86_64.tar.gz -P {es_home}'))
 
     # 将安装包解压到指定目录
     Execute(format('tar -zxf {es_home}/elasticsearch-7.11.2-linux-x86_64.tar.gz -C {es_home}'))
@@ -69,7 +70,12 @@ def elasticsearch(type=None):
     Execute(command='mv elasticsearch-7.11.2-linux-x86_64.tar.gz /tmp', user='root')
 
     # 初始化环境变量
-    Execute(format("useradd {es_user} -g {user_group}"))
+    try:
+        # 尝试获取用户信息
+        pwd.getpwnam(params.es_user)
+        Logger.info("用户......" + params.es_user + "......存在")
+    except KeyError:
+        Execute(format("useradd {es_user} -g {user_group}"))
     Execute(format("cd {es_home}; chown -R {es_user}:{user_group} elasticsearch*"))
     configFile("elasticsearch.yml", template_name="elasticsearch.yml.j2")
     configFile("jvm.options", template_name="jvm.options.j2")

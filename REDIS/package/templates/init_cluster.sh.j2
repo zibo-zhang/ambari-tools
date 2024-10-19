@@ -1,5 +1,2 @@
-source /etc/profile.d/rvm.sh
-rvm use 2.3.1 --default
-redis-trib.rb create --replicas 1 {{cluster_service}} <<!
-yes
-!
+source /etc/profile.d/redis.sh
+redis-cli --cluster create {{cluster_service}} --cluster-replicas 1
